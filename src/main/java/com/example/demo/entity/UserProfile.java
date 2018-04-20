@@ -2,7 +2,6 @@ package com.example.demo.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.util.List;
 
 
 /**
@@ -20,31 +19,11 @@ public class UserProfile implements Serializable {
 	@Column(unique=true, nullable=false)
 	private int id;
 
-	//bi-directional many-to-one association to JobPlanning
-	@OneToMany(mappedBy="userProfile")
-	private List<JobPlanning> jobPlannings;
+	@Column(name="profile_id", nullable=false)
+	private int profileId;
 
-	//bi-directional many-to-one association to User
-	@ManyToOne
-	@JoinColumn(name="user_id", nullable=false)
-	private User user;
-
-	//bi-directional many-to-one association to Profile
-	@ManyToOne
-	@JoinColumn(name="profile_id", nullable=false)
-	private Profile profile;
-
-	//bi-directional many-to-one association to UserProfileDevice
-	@OneToMany(mappedBy="userProfile")
-	private List<UserProfileDevice> userProfileDevices;
-
-	//bi-directional many-to-one association to UserProfileFilter
-	@OneToMany(mappedBy="userProfile")
-	private List<UserProfileFilter> userProfileFilters;
-
-	//bi-directional many-to-one association to UserProfilePermission
-	@OneToMany(mappedBy="userProfile")
-	private List<UserProfilePermission> userProfilePermissions;
+	@Column(name="user_id", nullable=false)
+	private int userId;
 
 	public UserProfile() {
 	}
@@ -57,108 +36,20 @@ public class UserProfile implements Serializable {
 		this.id = id;
 	}
 
-	public List<JobPlanning> getJobPlannings() {
-		return this.jobPlannings;
+	public int getProfileId() {
+		return this.profileId;
 	}
 
-	public void setJobPlannings(List<JobPlanning> jobPlannings) {
-		this.jobPlannings = jobPlannings;
+	public void setProfileId(int profileId) {
+		this.profileId = profileId;
 	}
 
-	public JobPlanning addJobPlanning(JobPlanning jobPlanning) {
-		getJobPlannings().add(jobPlanning);
-		jobPlanning.setUserProfile(this);
-
-		return jobPlanning;
+	public int getUserId() {
+		return this.userId;
 	}
 
-	public JobPlanning removeJobPlanning(JobPlanning jobPlanning) {
-		getJobPlannings().remove(jobPlanning);
-		jobPlanning.setUserProfile(null);
-
-		return jobPlanning;
-	}
-
-	public User getUser() {
-		return this.user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-	public Profile getProfile() {
-		return this.profile;
-	}
-
-	public void setProfile(Profile profile) {
-		this.profile = profile;
-	}
-
-	public List<UserProfileDevice> getUserProfileDevices() {
-		return this.userProfileDevices;
-	}
-
-	public void setUserProfileDevices(List<UserProfileDevice> userProfileDevices) {
-		this.userProfileDevices = userProfileDevices;
-	}
-
-	public UserProfileDevice addUserProfileDevice(UserProfileDevice userProfileDevice) {
-		getUserProfileDevices().add(userProfileDevice);
-		userProfileDevice.setUserProfile(this);
-
-		return userProfileDevice;
-	}
-
-	public UserProfileDevice removeUserProfileDevice(UserProfileDevice userProfileDevice) {
-		getUserProfileDevices().remove(userProfileDevice);
-		userProfileDevice.setUserProfile(null);
-
-		return userProfileDevice;
-	}
-
-	public List<UserProfileFilter> getUserProfileFilters() {
-		return this.userProfileFilters;
-	}
-
-	public void setUserProfileFilters(List<UserProfileFilter> userProfileFilters) {
-		this.userProfileFilters = userProfileFilters;
-	}
-
-	public UserProfileFilter addUserProfileFilter(UserProfileFilter userProfileFilter) {
-		getUserProfileFilters().add(userProfileFilter);
-		userProfileFilter.setUserProfile(this);
-
-		return userProfileFilter;
-	}
-
-	public UserProfileFilter removeUserProfileFilter(UserProfileFilter userProfileFilter) {
-		getUserProfileFilters().remove(userProfileFilter);
-		userProfileFilter.setUserProfile(null);
-
-		return userProfileFilter;
-	}
-
-	public List<UserProfilePermission> getUserProfilePermissions() {
-		return this.userProfilePermissions;
-	}
-
-	public void setUserProfilePermissions(List<UserProfilePermission> userProfilePermissions) {
-		this.userProfilePermissions = userProfilePermissions;
-	}
-
-	public UserProfilePermission addUserProfilePermission(UserProfilePermission userProfilePermission) {
-		getUserProfilePermissions().add(userProfilePermission);
-		userProfilePermission.setUserProfile(this);
-
-		return userProfilePermission;
-	}
-
-	public UserProfilePermission removeUserProfilePermission(UserProfilePermission userProfilePermission) {
-		getUserProfilePermissions().remove(userProfilePermission);
-		userProfilePermission.setUserProfile(null);
-
-		return userProfilePermission;
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 
 }

@@ -2,7 +2,6 @@ package com.example.demo.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.util.List;
 
 
 /**
@@ -35,18 +34,10 @@ public class GridField implements Serializable {
 	@Column(nullable=false, length=255)
 	private String name;
 
-	//bi-directional many-to-one association to Grid
+	//uni-directional many-to-one association to Grid
 	@ManyToOne
 	@JoinColumn(name="grid_id", nullable=false)
 	private Grid grid;
-
-	//bi-directional many-to-one association to GridFieldProfile
-	@OneToMany(mappedBy="gridField")
-	private List<GridFieldProfile> gridFieldProfiles;
-
-	//bi-directional many-to-one association to GridFieldUserProfileDevice
-	@OneToMany(mappedBy="gridField")
-	private List<GridFieldUserProfileDevice> gridFieldUserProfileDevices;
 
 	public GridField() {
 	}
@@ -105,50 +96,6 @@ public class GridField implements Serializable {
 
 	public void setGrid(Grid grid) {
 		this.grid = grid;
-	}
-
-	public List<GridFieldProfile> getGridFieldProfiles() {
-		return this.gridFieldProfiles;
-	}
-
-	public void setGridFieldProfiles(List<GridFieldProfile> gridFieldProfiles) {
-		this.gridFieldProfiles = gridFieldProfiles;
-	}
-
-	public GridFieldProfile addGridFieldProfile(GridFieldProfile gridFieldProfile) {
-		getGridFieldProfiles().add(gridFieldProfile);
-		gridFieldProfile.setGridField(this);
-
-		return gridFieldProfile;
-	}
-
-	public GridFieldProfile removeGridFieldProfile(GridFieldProfile gridFieldProfile) {
-		getGridFieldProfiles().remove(gridFieldProfile);
-		gridFieldProfile.setGridField(null);
-
-		return gridFieldProfile;
-	}
-
-	public List<GridFieldUserProfileDevice> getGridFieldUserProfileDevices() {
-		return this.gridFieldUserProfileDevices;
-	}
-
-	public void setGridFieldUserProfileDevices(List<GridFieldUserProfileDevice> gridFieldUserProfileDevices) {
-		this.gridFieldUserProfileDevices = gridFieldUserProfileDevices;
-	}
-
-	public GridFieldUserProfileDevice addGridFieldUserProfileDevice(GridFieldUserProfileDevice gridFieldUserProfileDevice) {
-		getGridFieldUserProfileDevices().add(gridFieldUserProfileDevice);
-		gridFieldUserProfileDevice.setGridField(this);
-
-		return gridFieldUserProfileDevice;
-	}
-
-	public GridFieldUserProfileDevice removeGridFieldUserProfileDevice(GridFieldUserProfileDevice gridFieldUserProfileDevice) {
-		getGridFieldUserProfileDevices().remove(gridFieldUserProfileDevice);
-		gridFieldUserProfileDevice.setGridField(null);
-
-		return gridFieldUserProfileDevice;
 	}
 
 }

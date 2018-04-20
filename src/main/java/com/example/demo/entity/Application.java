@@ -2,7 +2,6 @@ package com.example.demo.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.util.List;
 
 
 /**
@@ -31,14 +30,6 @@ public class Application implements Serializable {
 
 	@Column(length=255)
 	private String url;
-
-	//bi-directional many-to-one association to Profile
-	@OneToMany(mappedBy="application")
-	private List<Profile> profiles;
-
-	//bi-directional many-to-one association to Synchronization
-	@OneToMany(mappedBy="application")
-	private List<Synchronization> synchronizations;
 
 	public Application() {
 	}
@@ -81,50 +72,6 @@ public class Application implements Serializable {
 
 	public void setUrl(String url) {
 		this.url = url;
-	}
-
-	public List<Profile> getProfiles() {
-		return this.profiles;
-	}
-
-	public void setProfiles(List<Profile> profiles) {
-		this.profiles = profiles;
-	}
-
-	public Profile addProfile(Profile profile) {
-		getProfiles().add(profile);
-		profile.setApplication(this);
-
-		return profile;
-	}
-
-	public Profile removeProfile(Profile profile) {
-		getProfiles().remove(profile);
-		profile.setApplication(null);
-
-		return profile;
-	}
-
-	public List<Synchronization> getSynchronizations() {
-		return this.synchronizations;
-	}
-
-	public void setSynchronizations(List<Synchronization> synchronizations) {
-		this.synchronizations = synchronizations;
-	}
-
-	public Synchronization addSynchronization(Synchronization synchronization) {
-		getSynchronizations().add(synchronization);
-		synchronization.setApplication(this);
-
-		return synchronization;
-	}
-
-	public Synchronization removeSynchronization(Synchronization synchronization) {
-		getSynchronizations().remove(synchronization);
-		synchronization.setApplication(null);
-
-		return synchronization;
 	}
 
 }

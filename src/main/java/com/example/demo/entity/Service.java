@@ -3,7 +3,6 @@ package com.example.demo.entity;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 
 
 /**
@@ -41,19 +40,13 @@ public class Service implements Serializable {
 	@Column(length=255)
 	private String name;
 
-	//bi-directional many-to-one association to ServiceGroup
-	@ManyToOne
-	@JoinColumn(name="service_group_id")
-	private ServiceGroup serviceGroup;
+	@Column(name="service_group_id")
+	private int serviceGroupId;
 
-	//bi-directional many-to-one association to Customer
+	//uni-directional many-to-one association to Customer
 	@ManyToOne
 	@JoinColumn(name="customer_identifier", nullable=false)
 	private Customer customer;
-
-	//bi-directional many-to-one association to ServicePoint
-	@OneToMany(mappedBy="service")
-	private List<ServicePoint> servicePoints;
 
 	public Service() {
 	}
@@ -114,12 +107,12 @@ public class Service implements Serializable {
 		this.name = name;
 	}
 
-	public ServiceGroup getServiceGroup() {
-		return this.serviceGroup;
+	public int getServiceGroupId() {
+		return this.serviceGroupId;
 	}
 
-	public void setServiceGroup(ServiceGroup serviceGroup) {
-		this.serviceGroup = serviceGroup;
+	public void setServiceGroupId(int serviceGroupId) {
+		this.serviceGroupId = serviceGroupId;
 	}
 
 	public Customer getCustomer() {
@@ -128,28 +121,6 @@ public class Service implements Serializable {
 
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
-	}
-
-	public List<ServicePoint> getServicePoints() {
-		return this.servicePoints;
-	}
-
-	public void setServicePoints(List<ServicePoint> servicePoints) {
-		this.servicePoints = servicePoints;
-	}
-
-	public ServicePoint addServicePoint(ServicePoint servicePoint) {
-		getServicePoints().add(servicePoint);
-		servicePoint.setService(this);
-
-		return servicePoint;
-	}
-
-	public ServicePoint removeServicePoint(ServicePoint servicePoint) {
-		getServicePoints().remove(servicePoint);
-		servicePoint.setService(null);
-
-		return servicePoint;
 	}
 
 }

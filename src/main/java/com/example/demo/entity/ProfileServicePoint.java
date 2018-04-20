@@ -19,12 +19,12 @@ public class ProfileServicePoint implements Serializable {
 	@Column(unique=true, nullable=false)
 	private int id;
 
-	//bi-directional many-to-one association to ServicePoint
+	//uni-directional many-to-one association to ServicePoint
 	@ManyToOne
 	@JoinColumn(name="service_point_identifier", nullable=false)
 	private ServicePoint servicePoint;
 
-	//bi-directional many-to-one association to Profile
+	//uni-directional many-to-one association to Profile
 	@ManyToOne
 	@JoinColumn(name="profile_id", nullable=false)
 	private Profile profile;

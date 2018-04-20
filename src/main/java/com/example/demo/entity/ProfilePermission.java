@@ -24,7 +24,7 @@ public class ProfilePermission implements Serializable {
 	@JoinColumn(name="profile_id", nullable=false)
 	private Profile profile;
 
-	//bi-directional many-to-one association to Permission
+	//uni-directional many-to-one association to Permission
 	@ManyToOne
 	@JoinColumn(name="permission_id", nullable=false)
 	private Permission permission;

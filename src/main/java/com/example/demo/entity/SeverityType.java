@@ -3,7 +3,6 @@ package com.example.demo.entity;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 
 
 /**
@@ -37,22 +36,6 @@ public class SeverityType implements Serializable {
 
 	@Column(length=255)
 	private String name;
-
-	//bi-directional many-to-one association to EventType
-	@OneToMany(mappedBy="severityType")
-	private List<EventType> eventTypes;
-
-	//bi-directional many-to-one association to ProfileEventType
-	@OneToMany(mappedBy="severityType")
-	private List<ProfileEventType> profileEventTypes;
-
-	//bi-directional many-to-one association to ProfileServicePointEventType
-	@OneToMany(mappedBy="severityType")
-	private List<ProfileServicePointEventType> profileServicePointEventTypes;
-
-	//bi-directional many-to-one association to ProfileSynopticEventType
-	@OneToMany(mappedBy="severityType")
-	private List<ProfileSynopticEventType> profileSynopticEventTypes;
 
 	public SeverityType() {
 	}
@@ -103,94 +86,6 @@ public class SeverityType implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public List<EventType> getEventTypes() {
-		return this.eventTypes;
-	}
-
-	public void setEventTypes(List<EventType> eventTypes) {
-		this.eventTypes = eventTypes;
-	}
-
-	public EventType addEventType(EventType eventType) {
-		getEventTypes().add(eventType);
-		eventType.setSeverityType(this);
-
-		return eventType;
-	}
-
-	public EventType removeEventType(EventType eventType) {
-		getEventTypes().remove(eventType);
-		eventType.setSeverityType(null);
-
-		return eventType;
-	}
-
-	public List<ProfileEventType> getProfileEventTypes() {
-		return this.profileEventTypes;
-	}
-
-	public void setProfileEventTypes(List<ProfileEventType> profileEventTypes) {
-		this.profileEventTypes = profileEventTypes;
-	}
-
-	public ProfileEventType addProfileEventType(ProfileEventType profileEventType) {
-		getProfileEventTypes().add(profileEventType);
-		profileEventType.setSeverityType(this);
-
-		return profileEventType;
-	}
-
-	public ProfileEventType removeProfileEventType(ProfileEventType profileEventType) {
-		getProfileEventTypes().remove(profileEventType);
-		profileEventType.setSeverityType(null);
-
-		return profileEventType;
-	}
-
-	public List<ProfileServicePointEventType> getProfileServicePointEventTypes() {
-		return this.profileServicePointEventTypes;
-	}
-
-	public void setProfileServicePointEventTypes(List<ProfileServicePointEventType> profileServicePointEventTypes) {
-		this.profileServicePointEventTypes = profileServicePointEventTypes;
-	}
-
-	public ProfileServicePointEventType addProfileServicePointEventType(ProfileServicePointEventType profileServicePointEventType) {
-		getProfileServicePointEventTypes().add(profileServicePointEventType);
-		profileServicePointEventType.setSeverityType(this);
-
-		return profileServicePointEventType;
-	}
-
-	public ProfileServicePointEventType removeProfileServicePointEventType(ProfileServicePointEventType profileServicePointEventType) {
-		getProfileServicePointEventTypes().remove(profileServicePointEventType);
-		profileServicePointEventType.setSeverityType(null);
-
-		return profileServicePointEventType;
-	}
-
-	public List<ProfileSynopticEventType> getProfileSynopticEventTypes() {
-		return this.profileSynopticEventTypes;
-	}
-
-	public void setProfileSynopticEventTypes(List<ProfileSynopticEventType> profileSynopticEventTypes) {
-		this.profileSynopticEventTypes = profileSynopticEventTypes;
-	}
-
-	public ProfileSynopticEventType addProfileSynopticEventType(ProfileSynopticEventType profileSynopticEventType) {
-		getProfileSynopticEventTypes().add(profileSynopticEventType);
-		profileSynopticEventType.setSeverityType(this);
-
-		return profileSynopticEventType;
-	}
-
-	public ProfileSynopticEventType removeProfileSynopticEventType(ProfileSynopticEventType profileSynopticEventType) {
-		getProfileSynopticEventTypes().remove(profileSynopticEventType);
-		profileSynopticEventType.setSeverityType(null);
-
-		return profileSynopticEventType;
 	}
 
 }

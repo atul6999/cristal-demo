@@ -3,7 +3,6 @@ package com.example.demo.entity;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 
 
 /**
@@ -126,6 +125,9 @@ public class ServicePoint implements Serializable {
 	@Column(length=255)
 	private String monitoring;
 
+	@Column(name="monitoring_equipment_id")
+	private int monitoringEquipmentId;
+
 	@Column(name="mux_name", length=255)
 	private String muxName;
 
@@ -171,6 +173,21 @@ public class ServicePoint implements Serializable {
 	@Column(name="service_external_name", length=255)
 	private String serviceExternalName;
 
+	@Column(name="service_point_contract_type_id")
+	private int servicePointContractTypeId;
+
+	@Column(name="service_point_provider_id")
+	private int servicePointProviderId;
+
+	@Column(name="service_point_sla_id")
+	private int servicePointSlaId;
+
+	@Column(name="service_point_status_id")
+	private int servicePointStatusId;
+
+	@Column(name="service_point_type_id", nullable=false)
+	private int servicePointTypeId;
+
 	@Column(length=255)
 	private String sfn;
 
@@ -185,6 +202,9 @@ public class ServicePoint implements Serializable {
 
 	private byte streaming;
 
+	@Column(name="synoptic_id")
+	private int synopticId;
+
 	@Column(length=255)
 	private String tdf;
 
@@ -194,98 +214,15 @@ public class ServicePoint implements Serializable {
 	@Column(name="wolf_identifier", length=255)
 	private String wolfIdentifier;
 
-	//bi-directional many-to-one association to F3RegionServicePoint
-	@OneToMany(mappedBy="servicePoint")
-	private List<F3RegionServicePoint> f3RegionServicePoints;
-
-	//bi-directional many-to-one association to MenuServicePoint
-	@OneToMany(mappedBy="servicePoint")
-	private List<MenuServicePoint> menuServicePoints;
-
-	//bi-directional many-to-one association to NetworkLinkServicePointEventType
-	@OneToMany(mappedBy="servicePoint")
-	private List<NetworkLinkServicePointEventType> networkLinkServicePointEventTypes;
-
-	//bi-directional many-to-one association to ProfileHistoryStreaming
-	@OneToMany(mappedBy="servicePoint")
-	private List<ProfileHistoryStreaming> profileHistoryStreamings;
-
-	//bi-directional many-to-one association to ProfileLiveStreaming
-	@OneToMany(mappedBy="servicePoint")
-	private List<ProfileLiveStreaming> profileLiveStreamings;
-
-	//bi-directional many-to-one association to ProfileServicePoint
-	@OneToMany(mappedBy="servicePoint")
-	private List<ProfileServicePoint> profileServicePoints;
-
-	//bi-directional many-to-one association to ProfileServicePointEventType
-	@OneToMany(mappedBy="servicePoint")
-	private List<ProfileServicePointEventType> profileServicePointEventTypes;
-
-	//bi-directional many-to-one association to Resource
-	@OneToMany(mappedBy="servicePoint")
-	private List<Resource> resources;
-
-	//bi-directional many-to-one association to ResourceServicePoint
-	@OneToMany(mappedBy="servicePoint")
-	private List<ResourceServicePoint> resourceServicePoints;
-
-	//bi-directional many-to-one association to ServicePointProvider
-	@ManyToOne
-	@JoinColumn(name="service_point_provider_id")
-	private ServicePointProvider servicePointProvider;
-
-	//bi-directional many-to-one association to MonitoringEquipment
-	@ManyToOne
-	@JoinColumn(name="monitoring_equipment_id")
-	private MonitoringEquipment monitoringEquipment;
-
-	//bi-directional many-to-one association to ServicePointType
-	@ManyToOne
-	@JoinColumn(name="service_point_type_id", nullable=false)
-	private ServicePointType servicePointType;
-
-	//bi-directional many-to-one association to Synoptic
-	@ManyToOne
-	@JoinColumn(name="synoptic_id")
-	private Synoptic synoptic;
-
-	//bi-directional many-to-one association to ServicePointSla
-	@ManyToOne
-	@JoinColumn(name="service_point_sla_id")
-	private ServicePointSla servicePointSla;
-
-	//bi-directional many-to-one association to ServicePointContractType
-	@ManyToOne
-	@JoinColumn(name="service_point_contract_type_id")
-	private ServicePointContractType servicePointContractType;
-
-	//bi-directional many-to-one association to Service
+	//uni-directional many-to-one association to Service
 	@ManyToOne
 	@JoinColumn(name="service_identifier", nullable=false)
 	private Service service;
 
-	//bi-directional many-to-one association to ServicePointStatus
-	@ManyToOne
-	@JoinColumn(name="service_point_status_id")
-	private ServicePointStatus servicePointStatus;
-
-	//bi-directional many-to-one association to GeoSite
+	//uni-directional many-to-one association to GeoSite
 	@ManyToOne
 	@JoinColumn(name="geo_site_code", nullable=false)
 	private GeoSite geoSite;
-
-	//bi-directional many-to-one association to SynopticComponent
-	@OneToMany(mappedBy="servicePoint")
-	private List<SynopticComponent> synopticComponents;
-
-	//bi-directional many-to-one association to Telemetry
-	@OneToMany(mappedBy="servicePoint")
-	private List<Telemetry> telemetries;
-
-	//bi-directional many-to-one association to TransportServicePoint
-	@OneToMany(mappedBy="servicePoint")
-	private List<TransportServicePoint> transportServicePoints;
 
 	public ServicePoint() {
 	}
@@ -570,6 +507,14 @@ public class ServicePoint implements Serializable {
 		this.monitoring = monitoring;
 	}
 
+	public int getMonitoringEquipmentId() {
+		return this.monitoringEquipmentId;
+	}
+
+	public void setMonitoringEquipmentId(int monitoringEquipmentId) {
+		this.monitoringEquipmentId = monitoringEquipmentId;
+	}
+
 	public String getMuxName() {
 		return this.muxName;
 	}
@@ -690,6 +635,46 @@ public class ServicePoint implements Serializable {
 		this.serviceExternalName = serviceExternalName;
 	}
 
+	public int getServicePointContractTypeId() {
+		return this.servicePointContractTypeId;
+	}
+
+	public void setServicePointContractTypeId(int servicePointContractTypeId) {
+		this.servicePointContractTypeId = servicePointContractTypeId;
+	}
+
+	public int getServicePointProviderId() {
+		return this.servicePointProviderId;
+	}
+
+	public void setServicePointProviderId(int servicePointProviderId) {
+		this.servicePointProviderId = servicePointProviderId;
+	}
+
+	public int getServicePointSlaId() {
+		return this.servicePointSlaId;
+	}
+
+	public void setServicePointSlaId(int servicePointSlaId) {
+		this.servicePointSlaId = servicePointSlaId;
+	}
+
+	public int getServicePointStatusId() {
+		return this.servicePointStatusId;
+	}
+
+	public void setServicePointStatusId(int servicePointStatusId) {
+		this.servicePointStatusId = servicePointStatusId;
+	}
+
+	public int getServicePointTypeId() {
+		return this.servicePointTypeId;
+	}
+
+	public void setServicePointTypeId(int servicePointTypeId) {
+		this.servicePointTypeId = servicePointTypeId;
+	}
+
 	public String getSfn() {
 		return this.sfn;
 	}
@@ -730,6 +715,14 @@ public class ServicePoint implements Serializable {
 		this.streaming = streaming;
 	}
 
+	public int getSynopticId() {
+		return this.synopticId;
+	}
+
+	public void setSynopticId(int synopticId) {
+		this.synopticId = synopticId;
+	}
+
 	public String getTdf() {
 		return this.tdf;
 	}
@@ -754,252 +747,6 @@ public class ServicePoint implements Serializable {
 		this.wolfIdentifier = wolfIdentifier;
 	}
 
-	public List<F3RegionServicePoint> getF3RegionServicePoints() {
-		return this.f3RegionServicePoints;
-	}
-
-	public void setF3RegionServicePoints(List<F3RegionServicePoint> f3RegionServicePoints) {
-		this.f3RegionServicePoints = f3RegionServicePoints;
-	}
-
-	public F3RegionServicePoint addF3RegionServicePoint(F3RegionServicePoint f3RegionServicePoint) {
-		getF3RegionServicePoints().add(f3RegionServicePoint);
-		f3RegionServicePoint.setServicePoint(this);
-
-		return f3RegionServicePoint;
-	}
-
-	public F3RegionServicePoint removeF3RegionServicePoint(F3RegionServicePoint f3RegionServicePoint) {
-		getF3RegionServicePoints().remove(f3RegionServicePoint);
-		f3RegionServicePoint.setServicePoint(null);
-
-		return f3RegionServicePoint;
-	}
-
-	public List<MenuServicePoint> getMenuServicePoints() {
-		return this.menuServicePoints;
-	}
-
-	public void setMenuServicePoints(List<MenuServicePoint> menuServicePoints) {
-		this.menuServicePoints = menuServicePoints;
-	}
-
-	public MenuServicePoint addMenuServicePoint(MenuServicePoint menuServicePoint) {
-		getMenuServicePoints().add(menuServicePoint);
-		menuServicePoint.setServicePoint(this);
-
-		return menuServicePoint;
-	}
-
-	public MenuServicePoint removeMenuServicePoint(MenuServicePoint menuServicePoint) {
-		getMenuServicePoints().remove(menuServicePoint);
-		menuServicePoint.setServicePoint(null);
-
-		return menuServicePoint;
-	}
-
-	public List<NetworkLinkServicePointEventType> getNetworkLinkServicePointEventTypes() {
-		return this.networkLinkServicePointEventTypes;
-	}
-
-	public void setNetworkLinkServicePointEventTypes(List<NetworkLinkServicePointEventType> networkLinkServicePointEventTypes) {
-		this.networkLinkServicePointEventTypes = networkLinkServicePointEventTypes;
-	}
-
-	public NetworkLinkServicePointEventType addNetworkLinkServicePointEventType(NetworkLinkServicePointEventType networkLinkServicePointEventType) {
-		getNetworkLinkServicePointEventTypes().add(networkLinkServicePointEventType);
-		networkLinkServicePointEventType.setServicePoint(this);
-
-		return networkLinkServicePointEventType;
-	}
-
-	public NetworkLinkServicePointEventType removeNetworkLinkServicePointEventType(NetworkLinkServicePointEventType networkLinkServicePointEventType) {
-		getNetworkLinkServicePointEventTypes().remove(networkLinkServicePointEventType);
-		networkLinkServicePointEventType.setServicePoint(null);
-
-		return networkLinkServicePointEventType;
-	}
-
-	public List<ProfileHistoryStreaming> getProfileHistoryStreamings() {
-		return this.profileHistoryStreamings;
-	}
-
-	public void setProfileHistoryStreamings(List<ProfileHistoryStreaming> profileHistoryStreamings) {
-		this.profileHistoryStreamings = profileHistoryStreamings;
-	}
-
-	public ProfileHistoryStreaming addProfileHistoryStreaming(ProfileHistoryStreaming profileHistoryStreaming) {
-		getProfileHistoryStreamings().add(profileHistoryStreaming);
-		profileHistoryStreaming.setServicePoint(this);
-
-		return profileHistoryStreaming;
-	}
-
-	public ProfileHistoryStreaming removeProfileHistoryStreaming(ProfileHistoryStreaming profileHistoryStreaming) {
-		getProfileHistoryStreamings().remove(profileHistoryStreaming);
-		profileHistoryStreaming.setServicePoint(null);
-
-		return profileHistoryStreaming;
-	}
-
-	public List<ProfileLiveStreaming> getProfileLiveStreamings() {
-		return this.profileLiveStreamings;
-	}
-
-	public void setProfileLiveStreamings(List<ProfileLiveStreaming> profileLiveStreamings) {
-		this.profileLiveStreamings = profileLiveStreamings;
-	}
-
-	public ProfileLiveStreaming addProfileLiveStreaming(ProfileLiveStreaming profileLiveStreaming) {
-		getProfileLiveStreamings().add(profileLiveStreaming);
-		profileLiveStreaming.setServicePoint(this);
-
-		return profileLiveStreaming;
-	}
-
-	public ProfileLiveStreaming removeProfileLiveStreaming(ProfileLiveStreaming profileLiveStreaming) {
-		getProfileLiveStreamings().remove(profileLiveStreaming);
-		profileLiveStreaming.setServicePoint(null);
-
-		return profileLiveStreaming;
-	}
-
-	public List<ProfileServicePoint> getProfileServicePoints() {
-		return this.profileServicePoints;
-	}
-
-	public void setProfileServicePoints(List<ProfileServicePoint> profileServicePoints) {
-		this.profileServicePoints = profileServicePoints;
-	}
-
-	public ProfileServicePoint addProfileServicePoint(ProfileServicePoint profileServicePoint) {
-		getProfileServicePoints().add(profileServicePoint);
-		profileServicePoint.setServicePoint(this);
-
-		return profileServicePoint;
-	}
-
-	public ProfileServicePoint removeProfileServicePoint(ProfileServicePoint profileServicePoint) {
-		getProfileServicePoints().remove(profileServicePoint);
-		profileServicePoint.setServicePoint(null);
-
-		return profileServicePoint;
-	}
-
-	public List<ProfileServicePointEventType> getProfileServicePointEventTypes() {
-		return this.profileServicePointEventTypes;
-	}
-
-	public void setProfileServicePointEventTypes(List<ProfileServicePointEventType> profileServicePointEventTypes) {
-		this.profileServicePointEventTypes = profileServicePointEventTypes;
-	}
-
-	public ProfileServicePointEventType addProfileServicePointEventType(ProfileServicePointEventType profileServicePointEventType) {
-		getProfileServicePointEventTypes().add(profileServicePointEventType);
-		profileServicePointEventType.setServicePoint(this);
-
-		return profileServicePointEventType;
-	}
-
-	public ProfileServicePointEventType removeProfileServicePointEventType(ProfileServicePointEventType profileServicePointEventType) {
-		getProfileServicePointEventTypes().remove(profileServicePointEventType);
-		profileServicePointEventType.setServicePoint(null);
-
-		return profileServicePointEventType;
-	}
-
-	public List<Resource> getResources() {
-		return this.resources;
-	}
-
-	public void setResources(List<Resource> resources) {
-		this.resources = resources;
-	}
-
-	public Resource addResource(Resource resource) {
-		getResources().add(resource);
-		resource.setServicePoint(this);
-
-		return resource;
-	}
-
-	public Resource removeResource(Resource resource) {
-		getResources().remove(resource);
-		resource.setServicePoint(null);
-
-		return resource;
-	}
-
-	public List<ResourceServicePoint> getResourceServicePoints() {
-		return this.resourceServicePoints;
-	}
-
-	public void setResourceServicePoints(List<ResourceServicePoint> resourceServicePoints) {
-		this.resourceServicePoints = resourceServicePoints;
-	}
-
-	public ResourceServicePoint addResourceServicePoint(ResourceServicePoint resourceServicePoint) {
-		getResourceServicePoints().add(resourceServicePoint);
-		resourceServicePoint.setServicePoint(this);
-
-		return resourceServicePoint;
-	}
-
-	public ResourceServicePoint removeResourceServicePoint(ResourceServicePoint resourceServicePoint) {
-		getResourceServicePoints().remove(resourceServicePoint);
-		resourceServicePoint.setServicePoint(null);
-
-		return resourceServicePoint;
-	}
-
-	public ServicePointProvider getServicePointProvider() {
-		return this.servicePointProvider;
-	}
-
-	public void setServicePointProvider(ServicePointProvider servicePointProvider) {
-		this.servicePointProvider = servicePointProvider;
-	}
-
-	public MonitoringEquipment getMonitoringEquipment() {
-		return this.monitoringEquipment;
-	}
-
-	public void setMonitoringEquipment(MonitoringEquipment monitoringEquipment) {
-		this.monitoringEquipment = monitoringEquipment;
-	}
-
-	public ServicePointType getServicePointType() {
-		return this.servicePointType;
-	}
-
-	public void setServicePointType(ServicePointType servicePointType) {
-		this.servicePointType = servicePointType;
-	}
-
-	public Synoptic getSynoptic() {
-		return this.synoptic;
-	}
-
-	public void setSynoptic(Synoptic synoptic) {
-		this.synoptic = synoptic;
-	}
-
-	public ServicePointSla getServicePointSla() {
-		return this.servicePointSla;
-	}
-
-	public void setServicePointSla(ServicePointSla servicePointSla) {
-		this.servicePointSla = servicePointSla;
-	}
-
-	public ServicePointContractType getServicePointContractType() {
-		return this.servicePointContractType;
-	}
-
-	public void setServicePointContractType(ServicePointContractType servicePointContractType) {
-		this.servicePointContractType = servicePointContractType;
-	}
-
 	public Service getService() {
 		return this.service;
 	}
@@ -1008,86 +755,12 @@ public class ServicePoint implements Serializable {
 		this.service = service;
 	}
 
-	public ServicePointStatus getServicePointStatus() {
-		return this.servicePointStatus;
-	}
-
-	public void setServicePointStatus(ServicePointStatus servicePointStatus) {
-		this.servicePointStatus = servicePointStatus;
-	}
-
 	public GeoSite getGeoSite() {
 		return this.geoSite;
 	}
 
 	public void setGeoSite(GeoSite geoSite) {
 		this.geoSite = geoSite;
-	}
-
-	public List<SynopticComponent> getSynopticComponents() {
-		return this.synopticComponents;
-	}
-
-	public void setSynopticComponents(List<SynopticComponent> synopticComponents) {
-		this.synopticComponents = synopticComponents;
-	}
-
-	public SynopticComponent addSynopticComponent(SynopticComponent synopticComponent) {
-		getSynopticComponents().add(synopticComponent);
-		synopticComponent.setServicePoint(this);
-
-		return synopticComponent;
-	}
-
-	public SynopticComponent removeSynopticComponent(SynopticComponent synopticComponent) {
-		getSynopticComponents().remove(synopticComponent);
-		synopticComponent.setServicePoint(null);
-
-		return synopticComponent;
-	}
-
-	public List<Telemetry> getTelemetries() {
-		return this.telemetries;
-	}
-
-	public void setTelemetries(List<Telemetry> telemetries) {
-		this.telemetries = telemetries;
-	}
-
-	public Telemetry addTelemetry(Telemetry telemetry) {
-		getTelemetries().add(telemetry);
-		telemetry.setServicePoint(this);
-
-		return telemetry;
-	}
-
-	public Telemetry removeTelemetry(Telemetry telemetry) {
-		getTelemetries().remove(telemetry);
-		telemetry.setServicePoint(null);
-
-		return telemetry;
-	}
-
-	public List<TransportServicePoint> getTransportServicePoints() {
-		return this.transportServicePoints;
-	}
-
-	public void setTransportServicePoints(List<TransportServicePoint> transportServicePoints) {
-		this.transportServicePoints = transportServicePoints;
-	}
-
-	public TransportServicePoint addTransportServicePoint(TransportServicePoint transportServicePoint) {
-		getTransportServicePoints().add(transportServicePoint);
-		transportServicePoint.setServicePoint(this);
-
-		return transportServicePoint;
-	}
-
-	public TransportServicePoint removeTransportServicePoint(TransportServicePoint transportServicePoint) {
-		getTransportServicePoints().remove(transportServicePoint);
-		transportServicePoint.setServicePoint(null);
-
-		return transportServicePoint;
 	}
 
 }

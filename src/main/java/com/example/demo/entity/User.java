@@ -21,6 +21,9 @@ public class User implements Serializable {
 	@Column(unique=true, nullable=false)
 	private int id;
 
+	@Column(name="active_user_profile_id")
+	private int activeUserProfileId;
+
 	@Column(name="administration_rights")
 	private int administrationRights;
 
@@ -37,7 +40,7 @@ public class User implements Serializable {
 	@Column(name="credentials_expire_at")
 	private Date credentialsExpireAt;
 
-	@Column(name="credentials_expired", nullable=false)
+	@Column(name="credentials_expired", nullable=true)
 	private byte credentialsExpired;
 
 	@Column(length=255)
@@ -88,7 +91,7 @@ public class User implements Serializable {
 	@Column(length=255)
 	private String name;
 
-	@Column(nullable=false, length=255)
+	@Column(nullable=true, length=255)
 	private String password;
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -120,6 +123,7 @@ public class User implements Serializable {
 	@Column(length=255)
 	private String status;
 
+	@Column(nullable=false)
 	private byte tdf;
 
 	@Column(name="telephone_notification_active")
@@ -131,44 +135,40 @@ public class User implements Serializable {
 	@Column(name="username_canonical", nullable=false, length=255)
 	private String usernameCanonical;
 
-	//bi-directional many-to-one association to Accesstoken
-	@OneToMany(mappedBy="user")
-	private List<Accesstoken> accesstokens;
-
-	//bi-directional many-to-one association to Authcode
-	@OneToMany(mappedBy="user")
-	private List<Authcode> authcodes;
-
-	//bi-directional many-to-one association to Refreshtoken
-	@OneToMany(mappedBy="user")
-	private List<Refreshtoken> refreshtokens;
-
-	//bi-directional many-to-one association to Profile
-	@ManyToOne
-	@JoinColumn(name="active_user_profile_id")
-	private Profile profile;
-
-	//bi-directional many-to-one association to UserAcquittedAlarm
-	@OneToMany(mappedBy="user")
-	private List<UserAcquittedAlarm> userAcquittedAlarms;
-
-	//bi-directional many-to-one association to UserActionHistory
-	@OneToMany(mappedBy="user")
-	private List<UserActionHistory> userActionHistories;
-
-	//bi-directional many-to-one association to UserProfile
-	@OneToMany(mappedBy="user")
-	private List<UserProfile> userProfiles;
-
+	//bi-directional many-to-many association to User
+	@ManyToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST )
+	@JoinColumn(name="user_id", nullable=false, insertable=false, updatable=false)
+	private List<Skill> skills;
+		
 	public User() {
 	}
 
+	public User(String name, List<Skill> skills) {
+		this.name = name;
+		this.skills = skills;
+		this.password = "atul";		
+		this.roles = "atul";
+		this.salt = "atul";
+		this.username = "atul";
+		this.usernameCanonical = "atul";
+		this.credentialsExpired = 1;
+		this.tdf = 1;
+	}
+	
 	public int getId() {
 		return this.id;
 	}
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public int getActiveUserProfileId() {
+		return this.activeUserProfileId;
+	}
+
+	public void setActiveUserProfileId(int activeUserProfileId) {
+		this.activeUserProfileId = activeUserProfileId;
 	}
 
 	public int getAdministrationRights() {
@@ -450,145 +450,13 @@ public class User implements Serializable {
 	public void setUsernameCanonical(String usernameCanonical) {
 		this.usernameCanonical = usernameCanonical;
 	}
-
-	public List<Accesstoken> getAccesstokens() {
-		return this.accesstokens;
+	
+	public List<Skill> getSkills() {
+		return this.skills;
 	}
 
-	public void setAccesstokens(List<Accesstoken> accesstokens) {
-		this.accesstokens = accesstokens;
-	}
-
-	public Accesstoken addAccesstoken(Accesstoken accesstoken) {
-		getAccesstokens().add(accesstoken);
-		accesstoken.setUser(this);
-
-		return accesstoken;
-	}
-
-	public Accesstoken removeAccesstoken(Accesstoken accesstoken) {
-		getAccesstokens().remove(accesstoken);
-		accesstoken.setUser(null);
-
-		return accesstoken;
-	}
-
-	public List<Authcode> getAuthcodes() {
-		return this.authcodes;
-	}
-
-	public void setAuthcodes(List<Authcode> authcodes) {
-		this.authcodes = authcodes;
-	}
-
-	public Authcode addAuthcode(Authcode authcode) {
-		getAuthcodes().add(authcode);
-		authcode.setUser(this);
-
-		return authcode;
-	}
-
-	public Authcode removeAuthcode(Authcode authcode) {
-		getAuthcodes().remove(authcode);
-		authcode.setUser(null);
-
-		return authcode;
-	}
-
-	public List<Refreshtoken> getRefreshtokens() {
-		return this.refreshtokens;
-	}
-
-	public void setRefreshtokens(List<Refreshtoken> refreshtokens) {
-		this.refreshtokens = refreshtokens;
-	}
-
-	public Refreshtoken addRefreshtoken(Refreshtoken refreshtoken) {
-		getRefreshtokens().add(refreshtoken);
-		refreshtoken.setUser(this);
-
-		return refreshtoken;
-	}
-
-	public Refreshtoken removeRefreshtoken(Refreshtoken refreshtoken) {
-		getRefreshtokens().remove(refreshtoken);
-		refreshtoken.setUser(null);
-
-		return refreshtoken;
-	}
-
-	public Profile getProfile() {
-		return this.profile;
-	}
-
-	public void setProfile(Profile profile) {
-		this.profile = profile;
-	}
-
-	public List<UserAcquittedAlarm> getUserAcquittedAlarms() {
-		return this.userAcquittedAlarms;
-	}
-
-	public void setUserAcquittedAlarms(List<UserAcquittedAlarm> userAcquittedAlarms) {
-		this.userAcquittedAlarms = userAcquittedAlarms;
-	}
-
-	public UserAcquittedAlarm addUserAcquittedAlarm(UserAcquittedAlarm userAcquittedAlarm) {
-		getUserAcquittedAlarms().add(userAcquittedAlarm);
-		userAcquittedAlarm.setUser(this);
-
-		return userAcquittedAlarm;
-	}
-
-	public UserAcquittedAlarm removeUserAcquittedAlarm(UserAcquittedAlarm userAcquittedAlarm) {
-		getUserAcquittedAlarms().remove(userAcquittedAlarm);
-		userAcquittedAlarm.setUser(null);
-
-		return userAcquittedAlarm;
-	}
-
-	public List<UserActionHistory> getUserActionHistories() {
-		return this.userActionHistories;
-	}
-
-	public void setUserActionHistories(List<UserActionHistory> userActionHistories) {
-		this.userActionHistories = userActionHistories;
-	}
-
-	public UserActionHistory addUserActionHistory(UserActionHistory userActionHistory) {
-		getUserActionHistories().add(userActionHistory);
-		userActionHistory.setUser(this);
-
-		return userActionHistory;
-	}
-
-	public UserActionHistory removeUserActionHistory(UserActionHistory userActionHistory) {
-		getUserActionHistories().remove(userActionHistory);
-		userActionHistory.setUser(null);
-
-		return userActionHistory;
-	}
-
-	public List<UserProfile> getUserProfiles() {
-		return this.userProfiles;
-	}
-
-	public void setUserProfiles(List<UserProfile> userProfiles) {
-		this.userProfiles = userProfiles;
-	}
-
-	public UserProfile addUserProfile(UserProfile userProfile) {
-		getUserProfiles().add(userProfile);
-		userProfile.setUser(this);
-
-		return userProfile;
-	}
-
-	public UserProfile removeUserProfile(UserProfile userProfile) {
-		getUserProfiles().remove(userProfile);
-		userProfile.setUser(null);
-
-		return userProfile;
+	public void setSkills(List<Skill> skills) {
+		this.skills = skills;
 	}
 
 }

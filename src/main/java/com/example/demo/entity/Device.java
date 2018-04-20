@@ -2,7 +2,6 @@ package com.example.demo.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.util.List;
 
 
 /**
@@ -23,10 +22,6 @@ public class Device implements Serializable {
 	@Column(nullable=false, length=255)
 	private String name;
 
-	//bi-directional many-to-one association to UserProfileDevice
-	@OneToMany(mappedBy="device")
-	private List<UserProfileDevice> userProfileDevices;
-
 	public Device() {
 	}
 
@@ -44,28 +39,6 @@ public class Device implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public List<UserProfileDevice> getUserProfileDevices() {
-		return this.userProfileDevices;
-	}
-
-	public void setUserProfileDevices(List<UserProfileDevice> userProfileDevices) {
-		this.userProfileDevices = userProfileDevices;
-	}
-
-	public UserProfileDevice addUserProfileDevice(UserProfileDevice userProfileDevice) {
-		getUserProfileDevices().add(userProfileDevice);
-		userProfileDevice.setDevice(this);
-
-		return userProfileDevice;
-	}
-
-	public UserProfileDevice removeUserProfileDevice(UserProfileDevice userProfileDevice) {
-		getUserProfileDevices().remove(userProfileDevice);
-		userProfileDevice.setDevice(null);
-
-		return userProfileDevice;
 	}
 
 }

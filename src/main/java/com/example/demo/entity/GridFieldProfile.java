@@ -22,15 +22,15 @@ public class GridFieldProfile implements Serializable {
 	@Column(name="column_order")
 	private short columnOrder;
 
-	//bi-directional many-to-one association to GridField
-	@ManyToOne
-	@JoinColumn(name="grid_field_id", nullable=false)
-	private GridField gridField;
-
-	//bi-directional many-to-one association to Profile
+	//uni-directional many-to-one association to Profile
 	@ManyToOne
 	@JoinColumn(name="profile_id", nullable=false)
 	private Profile profile;
+
+	//uni-directional many-to-one association to GridField
+	@ManyToOne
+	@JoinColumn(name="grid_field_id", nullable=false)
+	private GridField gridField;
 
 	public GridFieldProfile() {
 	}
@@ -51,20 +51,20 @@ public class GridFieldProfile implements Serializable {
 		this.columnOrder = columnOrder;
 	}
 
-	public GridField getGridField() {
-		return this.gridField;
-	}
-
-	public void setGridField(GridField gridField) {
-		this.gridField = gridField;
-	}
-
 	public Profile getProfile() {
 		return this.profile;
 	}
 
 	public void setProfile(Profile profile) {
 		this.profile = profile;
+	}
+
+	public GridField getGridField() {
+		return this.gridField;
+	}
+
+	public void setGridField(GridField gridField) {
+		this.gridField = gridField;
 	}
 
 }

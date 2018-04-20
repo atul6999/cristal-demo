@@ -2,7 +2,6 @@ package com.example.demo.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.util.List;
 
 
 /**
@@ -25,10 +24,6 @@ public class Grid implements Serializable {
 
 	@Column(nullable=false, length=255)
 	private String name;
-
-	//bi-directional many-to-one association to GridField
-	@OneToMany(mappedBy="grid")
-	private List<GridField> gridFields;
 
 	public Grid() {
 	}
@@ -55,28 +50,6 @@ public class Grid implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public List<GridField> getGridFields() {
-		return this.gridFields;
-	}
-
-	public void setGridFields(List<GridField> gridFields) {
-		this.gridFields = gridFields;
-	}
-
-	public GridField addGridField(GridField gridField) {
-		getGridFields().add(gridField);
-		gridField.setGrid(this);
-
-		return gridField;
-	}
-
-	public GridField removeGridField(GridField gridField) {
-		getGridFields().remove(gridField);
-		gridField.setGrid(null);
-
-		return gridField;
 	}
 
 }

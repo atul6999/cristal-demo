@@ -22,7 +22,11 @@ public class ProfileEventType implements Serializable {
 	@Column(name="animate_links", nullable=false)
 	private int animateLinks;
 
+	@Column(nullable=false)
 	private int delay;
+
+	@Column(name="event_type_identifier", nullable=false, length=255)
+	private String eventTypeIdentifier;
 
 	@Column(length=255)
 	private String label;
@@ -30,23 +34,14 @@ public class ProfileEventType implements Serializable {
 	@Column(name="mail_notification_active")
 	private byte mailNotificationActive;
 
+	@Column(name="profile_id", nullable=false)
+	private int profileId;
+
+	@Column(name="severity_type_id")
+	private int severityTypeId;
+
 	@Column(name="sms_notification_active")
 	private byte smsNotificationActive;
-
-	//bi-directional many-to-one association to EventType
-	@ManyToOne
-	@JoinColumn(name="event_type_identifier", nullable=false)
-	private EventType eventType;
-
-	//bi-directional many-to-one association to Profile
-	@ManyToOne
-	@JoinColumn(name="profile_id", nullable=false)
-	private Profile profile;
-
-	//bi-directional many-to-one association to SeverityType
-	@ManyToOne
-	@JoinColumn(name="severity_type_id")
-	private SeverityType severityType;
 
 	public ProfileEventType() {
 	}
@@ -75,6 +70,14 @@ public class ProfileEventType implements Serializable {
 		this.delay = delay;
 	}
 
+	public String getEventTypeIdentifier() {
+		return this.eventTypeIdentifier;
+	}
+
+	public void setEventTypeIdentifier(String eventTypeIdentifier) {
+		this.eventTypeIdentifier = eventTypeIdentifier;
+	}
+
 	public String getLabel() {
 		return this.label;
 	}
@@ -91,36 +94,28 @@ public class ProfileEventType implements Serializable {
 		this.mailNotificationActive = mailNotificationActive;
 	}
 
+	public int getProfileId() {
+		return this.profileId;
+	}
+
+	public void setProfileId(int profileId) {
+		this.profileId = profileId;
+	}
+
+	public int getSeverityTypeId() {
+		return this.severityTypeId;
+	}
+
+	public void setSeverityTypeId(int severityTypeId) {
+		this.severityTypeId = severityTypeId;
+	}
+
 	public byte getSmsNotificationActive() {
 		return this.smsNotificationActive;
 	}
 
 	public void setSmsNotificationActive(byte smsNotificationActive) {
 		this.smsNotificationActive = smsNotificationActive;
-	}
-
-	public EventType getEventType() {
-		return this.eventType;
-	}
-
-	public void setEventType(EventType eventType) {
-		this.eventType = eventType;
-	}
-
-	public Profile getProfile() {
-		return this.profile;
-	}
-
-	public void setProfile(Profile profile) {
-		this.profile = profile;
-	}
-
-	public SeverityType getSeverityType() {
-		return this.severityType;
-	}
-
-	public void setSeverityType(SeverityType severityType) {
-		this.severityType = severityType;
 	}
 
 }

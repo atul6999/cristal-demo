@@ -19,12 +19,10 @@ public class UserProfilePermission implements Serializable {
 	@Column(unique=true, nullable=false)
 	private int id;
 
-	//bi-directional many-to-one association to UserProfile
-	@ManyToOne
-	@JoinColumn(name="user_profile_id", nullable=false)
-	private UserProfile userProfile;
+	@Column(name="user_profile_id", nullable=false)
+	private int userProfileId;
 
-	//bi-directional many-to-one association to Permission
+	//uni-directional many-to-one association to Permission
 	@ManyToOne
 	@JoinColumn(name="permission_id", nullable=false)
 	private Permission permission;
@@ -40,12 +38,12 @@ public class UserProfilePermission implements Serializable {
 		this.id = id;
 	}
 
-	public UserProfile getUserProfile() {
-		return this.userProfile;
+	public int getUserProfileId() {
+		return this.userProfileId;
 	}
 
-	public void setUserProfile(UserProfile userProfile) {
-		this.userProfile = userProfile;
+	public void setUserProfileId(int userProfileId) {
+		this.userProfileId = userProfileId;
 	}
 
 	public Permission getPermission() {

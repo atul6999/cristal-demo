@@ -25,12 +25,12 @@ public class GridFieldUserProfileDevice implements Serializable {
 	@Lob
 	private String filter;
 
-	//bi-directional many-to-one association to GridField
+	//uni-directional many-to-one association to GridField
 	@ManyToOne
 	@JoinColumn(name="grid_field_id", nullable=false)
 	private GridField gridField;
 
-	//bi-directional many-to-one association to UserProfileDevice
+	//uni-directional many-to-one association to UserProfileDevice
 	@ManyToOne
 	@JoinColumn(name="user_profile_device_id", nullable=false)
 	private UserProfileDevice userProfileDevice;

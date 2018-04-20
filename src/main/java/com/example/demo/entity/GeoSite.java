@@ -3,7 +3,6 @@ package com.example.demo.entity;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 
 
 /**
@@ -67,42 +66,17 @@ public class GeoSite implements Serializable {
 
 	private byte tdf;
 
+	@Column(name="tdf_division_code", nullable=false, length=255)
+	private String tdfDivisionCode;
+
+	@Column(name="town_insee_code", length=64)
+	private String townInseeCode;
+
 	@Column(name="town_name", length=255)
 	private String townName;
 
 	@Column(name="zip_code", length=255)
 	private String zipCode;
-
-	//bi-directional many-to-one association to TdfDivisionLocation
-	@ManyToOne
-	@JoinColumn(name="tdf_division_location_code")
-	private TdfDivisionLocation tdfDivisionLocation;
-
-	//bi-directional many-to-one association to Town
-	@ManyToOne
-	@JoinColumn(name="town_insee_code")
-	private Town town;
-
-	//bi-directional many-to-one association to TdfDivision
-	@ManyToOne
-	@JoinColumn(name="tdf_division_code", nullable=false)
-	private TdfDivision tdfDivision;
-
-	//bi-directional many-to-one association to NetworkLink
-	@OneToMany(mappedBy="geoSite1")
-	private List<NetworkLink> networkLinks1;
-
-	//bi-directional many-to-one association to NetworkLink
-	@OneToMany(mappedBy="geoSite2")
-	private List<NetworkLink> networkLinks2;
-
-	//bi-directional many-to-one association to ServicePoint
-	@OneToMany(mappedBy="geoSite")
-	private List<ServicePoint> servicePoints;
-
-	//bi-directional many-to-one association to TransportServicePoint
-	@OneToMany(mappedBy="geoSite")
-	private List<TransportServicePoint> transportServicePoints;
 
 	public GeoSite() {
 	}
@@ -235,6 +209,22 @@ public class GeoSite implements Serializable {
 		this.tdf = tdf;
 	}
 
+	public String getTdfDivisionCode() {
+		return this.tdfDivisionCode;
+	}
+
+	public void setTdfDivisionCode(String tdfDivisionCode) {
+		this.tdfDivisionCode = tdfDivisionCode;
+	}
+
+	public String getTownInseeCode() {
+		return this.townInseeCode;
+	}
+
+	public void setTownInseeCode(String townInseeCode) {
+		this.townInseeCode = townInseeCode;
+	}
+
 	public String getTownName() {
 		return this.townName;
 	}
@@ -249,118 +239,6 @@ public class GeoSite implements Serializable {
 
 	public void setZipCode(String zipCode) {
 		this.zipCode = zipCode;
-	}
-
-	public TdfDivisionLocation getTdfDivisionLocation() {
-		return this.tdfDivisionLocation;
-	}
-
-	public void setTdfDivisionLocation(TdfDivisionLocation tdfDivisionLocation) {
-		this.tdfDivisionLocation = tdfDivisionLocation;
-	}
-
-	public Town getTown() {
-		return this.town;
-	}
-
-	public void setTown(Town town) {
-		this.town = town;
-	}
-
-	public TdfDivision getTdfDivision() {
-		return this.tdfDivision;
-	}
-
-	public void setTdfDivision(TdfDivision tdfDivision) {
-		this.tdfDivision = tdfDivision;
-	}
-
-	public List<NetworkLink> getNetworkLinks1() {
-		return this.networkLinks1;
-	}
-
-	public void setNetworkLinks1(List<NetworkLink> networkLinks1) {
-		this.networkLinks1 = networkLinks1;
-	}
-
-	public NetworkLink addNetworkLinks1(NetworkLink networkLinks1) {
-		getNetworkLinks1().add(networkLinks1);
-		networkLinks1.setGeoSite1(this);
-
-		return networkLinks1;
-	}
-
-	public NetworkLink removeNetworkLinks1(NetworkLink networkLinks1) {
-		getNetworkLinks1().remove(networkLinks1);
-		networkLinks1.setGeoSite1(null);
-
-		return networkLinks1;
-	}
-
-	public List<NetworkLink> getNetworkLinks2() {
-		return this.networkLinks2;
-	}
-
-	public void setNetworkLinks2(List<NetworkLink> networkLinks2) {
-		this.networkLinks2 = networkLinks2;
-	}
-
-	public NetworkLink addNetworkLinks2(NetworkLink networkLinks2) {
-		getNetworkLinks2().add(networkLinks2);
-		networkLinks2.setGeoSite2(this);
-
-		return networkLinks2;
-	}
-
-	public NetworkLink removeNetworkLinks2(NetworkLink networkLinks2) {
-		getNetworkLinks2().remove(networkLinks2);
-		networkLinks2.setGeoSite2(null);
-
-		return networkLinks2;
-	}
-
-	public List<ServicePoint> getServicePoints() {
-		return this.servicePoints;
-	}
-
-	public void setServicePoints(List<ServicePoint> servicePoints) {
-		this.servicePoints = servicePoints;
-	}
-
-	public ServicePoint addServicePoint(ServicePoint servicePoint) {
-		getServicePoints().add(servicePoint);
-		servicePoint.setGeoSite(this);
-
-		return servicePoint;
-	}
-
-	public ServicePoint removeServicePoint(ServicePoint servicePoint) {
-		getServicePoints().remove(servicePoint);
-		servicePoint.setGeoSite(null);
-
-		return servicePoint;
-	}
-
-	public List<TransportServicePoint> getTransportServicePoints() {
-		return this.transportServicePoints;
-	}
-
-	public void setTransportServicePoints(List<TransportServicePoint> transportServicePoints) {
-		this.transportServicePoints = transportServicePoints;
-	}
-
-	public TransportServicePoint addTransportServicePoint(TransportServicePoint transportServicePoint) {
-		getTransportServicePoints().add(transportServicePoint);
-		transportServicePoint.setGeoSite(this);
-
-		return transportServicePoint;
-	}
-
-	public TransportServicePoint removeTransportServicePoint(TransportServicePoint transportServicePoint) {
-		getTransportServicePoints().remove(transportServicePoint);
-		transportServicePoint.setGeoSite(null);
-
-		return transportServicePoint;
 	}
 
 }

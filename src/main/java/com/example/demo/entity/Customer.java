@@ -3,7 +3,6 @@ package com.example.demo.entity;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 
 
 /**
@@ -40,14 +39,6 @@ public class Customer implements Serializable {
 
 	@Column(length=255)
 	private String name;
-
-	//bi-directional many-to-one association to ProfileCustomer
-	@OneToMany(mappedBy="customer")
-	private List<ProfileCustomer> profileCustomers;
-
-	//bi-directional many-to-one association to Service
-	@OneToMany(mappedBy="customer")
-	private List<Service> services;
 
 	public Customer() {
 	}
@@ -106,50 +97,6 @@ public class Customer implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public List<ProfileCustomer> getProfileCustomers() {
-		return this.profileCustomers;
-	}
-
-	public void setProfileCustomers(List<ProfileCustomer> profileCustomers) {
-		this.profileCustomers = profileCustomers;
-	}
-
-	public ProfileCustomer addProfileCustomer(ProfileCustomer profileCustomer) {
-		getProfileCustomers().add(profileCustomer);
-		profileCustomer.setCustomer(this);
-
-		return profileCustomer;
-	}
-
-	public ProfileCustomer removeProfileCustomer(ProfileCustomer profileCustomer) {
-		getProfileCustomers().remove(profileCustomer);
-		profileCustomer.setCustomer(null);
-
-		return profileCustomer;
-	}
-
-	public List<Service> getServices() {
-		return this.services;
-	}
-
-	public void setServices(List<Service> services) {
-		this.services = services;
-	}
-
-	public Service addService(Service service) {
-		getServices().add(service);
-		service.setCustomer(this);
-
-		return service;
-	}
-
-	public Service removeService(Service service) {
-		getServices().remove(service);
-		service.setCustomer(null);
-
-		return service;
 	}
 
 }

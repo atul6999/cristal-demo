@@ -2,7 +2,6 @@ package com.example.demo.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.util.List;
 
 
 /**
@@ -25,14 +24,6 @@ public class Permission implements Serializable {
 
 	@Column(length=255)
 	private String name;
-
-	//bi-directional many-to-one association to ProfilePermission
-	@OneToMany(mappedBy="permission")
-	private List<ProfilePermission> profilePermissions;
-
-	//bi-directional many-to-one association to UserProfilePermission
-	@OneToMany(mappedBy="permission")
-	private List<UserProfilePermission> userProfilePermissions;
 
 	public Permission() {
 	}
@@ -59,50 +50,6 @@ public class Permission implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public List<ProfilePermission> getProfilePermissions() {
-		return this.profilePermissions;
-	}
-
-	public void setProfilePermissions(List<ProfilePermission> profilePermissions) {
-		this.profilePermissions = profilePermissions;
-	}
-
-	public ProfilePermission addProfilePermission(ProfilePermission profilePermission) {
-		getProfilePermissions().add(profilePermission);
-		profilePermission.setPermission(this);
-
-		return profilePermission;
-	}
-
-	public ProfilePermission removeProfilePermission(ProfilePermission profilePermission) {
-		getProfilePermissions().remove(profilePermission);
-		profilePermission.setPermission(null);
-
-		return profilePermission;
-	}
-
-	public List<UserProfilePermission> getUserProfilePermissions() {
-		return this.userProfilePermissions;
-	}
-
-	public void setUserProfilePermissions(List<UserProfilePermission> userProfilePermissions) {
-		this.userProfilePermissions = userProfilePermissions;
-	}
-
-	public UserProfilePermission addUserProfilePermission(UserProfilePermission userProfilePermission) {
-		getUserProfilePermissions().add(userProfilePermission);
-		userProfilePermission.setPermission(this);
-
-		return userProfilePermission;
-	}
-
-	public UserProfilePermission removeUserProfilePermission(UserProfilePermission userProfilePermission) {
-		getUserProfilePermissions().remove(userProfilePermission);
-		userProfilePermission.setPermission(null);
-
-		return userProfilePermission;
 	}
 
 }
