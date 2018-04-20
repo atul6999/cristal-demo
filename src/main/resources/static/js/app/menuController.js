@@ -1,4 +1,7 @@
-app.controller("menuController", ['$scope', function($scope){
+'use strict'
+
+var module = angular.module('demo.controllers', []);
+module.controller("menuController", ['$scope', function($scope){
     $scope.menu = "Menu";
     $scope.model = {title: 'MainTitle'};
     $scope.changeDish = function(newDish, price){

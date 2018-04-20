@@ -1,4 +1,7 @@
-app.controller('pizzaController', [
+'use strict'
+
+var module = angular.module('demo.controllers', []);
+module.controller('pizzaController', [
     '$scope',
     function ($scope) {
         $scope.model = { title: 'Pizza Builder' ,

@@ -6,6 +6,7 @@
 </head>
 <body ng-app="demo">
 <hr/>
+
 <div class="container" ng-controller="UserController">
     <div class="row">
         <label>User</label> <input type="text" ng-model="userDto.userName" class="input-sm spacing"/>
@@ -25,12 +26,110 @@
         </div>
     </div>
 </div>
+
+<div ng-controller="helloController">
+    <div class="container">
+        <h1>AngularFundamentals</h1>
+        <h2>{{'Hello from AngularJS'}}</h2>
+        <pre>{{appName}}</pre>
+        {{dateAng}}
+    </div>
+    <script>
+    var helloWorldApp = angular.module("helloWorldApp", []);
+    angular.module("helloWorldApp").controller( 'helloController',['$scope', 'myconfig',
+    function($scope, myconfig){
+        $scope.appName= "Atul angular app";
+        $scope.appName= myconfig.applicationName;
+        $scope.dateAng = Date();
+    }
+    ]);
+    angular.module("helloWorldApp").constant('myconfig', {applicationName: 'Atul'});
+    </script>
+</div>
+
+<div ng-controller="labController">
+    <div class="container">
+        <h1>Promises, HTTP and Resources</h1>
+        <input type="number" ng-model="model.number" class="form-control"/>
+    <input type="button" class="btn btn-primary" value="Check Odd Number" ng-click="checkOddNumber(model.number)"/>
+
+    <pre>{{model.result}}</pre>
+    </div>
+</div>
+
+<div ng-controller="menuController">
+    <div class="container">
+        <h1>Tony's Pizza</h1>
+        <h2>{{menu}}</h2>
+        {{model.title}}
+        <div>
+            <label><input ng-click="changeDish('Cheese Pizza', '13.99')" type="radio" name="category" /> Cheese Pizza</label>
+        </div>
+        <div>
+            <label><input ng-click="changeDish('Pepperoni Pizza', '1.99')" type="radio" name="category" /> Pepperoni Pizza</label>
+        </div>
+        <div>
+            <label><input ng-click="changeDish('Margherita Pizza', '10')" type="radio" name="category" /> Margherita Pizza</label>
+        </div>
+        <div>
+            <label><input ng-click="changeDish('BBQ Chicken Pizza', '09.99')" type="radio" name="category" > BBQ Chicken Pizza</label>
+        </div>
+        <div>
+            <label><input ng-click="changeDish('Combo Pizza', '5.6')" type="radio" name="category" /> Combo Pizza</label>
+        </div>
+        <div>
+            <h3>Selected Item</h3>
+            <pre>{{model.mainDish}}</pre>
+        </div>
+        <div>
+            <h3>Special Instuctions</h3>
+            <textarea class="form-control" ng-model="model.specialInstructions"></textarea>
+        </div>
+        <div>
+            <h3>Order Summary</h3>
+            <pre>{{model.mainDish}}  {{model.price | currency}} - {{model.specialInstructions}}</pre>
+        </div>
+    </div>   
+</div>
+
+<div ng-controller="pizzaController">
+    <div class="container">
+        <h1>Tony's Pizza</h1>
+
+        <h2>{{model.title}}</h2>
+        <h3>Topping Search</h3>
+<input type="text" class="form-control" ng-model="model.search">
+<div ng-show="model.toppingAdded" class="alert alert-success"> 
+        Topping added.<button ng-click="changeStatus(false)">close</button>
+</div>
+<div ng-hide="model.search">
+    Enter the search criteria above.
+</div>
+<div ng-show="model.search">
+    <div ng-repeat= "topping in model.availableToppings | filter: model.search">
+        <b ng-click="addTopping(topping)">{{topping}}</b>
+    </div>
+    <div ng-show="(model.availableToppings | filter:model.search).length === 0"  class="alert alert-danger"> 
+            No results.
+    </div>
+</div>
+<h3 ng-show="model.toppings.length > 0">Selected Toppings</h3>
+<div ng-repeat="t in model.toppings">
+    {{t}}
+</div>
+    </div>
+
+
+</div>
 </body>
 <script src="js/lib/angular.min.js"></script>
 <script src="js/lib/ui-bootstrap-tpls-2.5.0.min.js"></script>
 <script src="js/app/app.js"></script>
 <script src="js/app/UserController.js"></script>
 <script src="js/app/UserService.js"></script>
+<script src="js/app/labController.js"></script
+<script src="js/app/menuController.js"></script>
+<script src="js/app/pizzaController.js"></script>
 <link rel="stylesheet" href="css/lib/bootstrap.min.css"/>
 <link rel="stylesheet" href="css/app/app.css"/>
 </html>
