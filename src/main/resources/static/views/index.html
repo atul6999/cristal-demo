@@ -3,6 +3,16 @@
 <head>
     <meta charset="ISO-8859-1">
     <title>Main Page</title>
+    <!-- <script src="js/lib/angular.min.js"></script>
+	<script src="js/lib/ui-bootstrap-tpls-2.5.0.min.js"></script>
+	<script src="js/app/app.js"></script>
+	<script src="js/app/UserController.js"></script>
+	<script src="js/app/UserService.js"></script> 
+	<script src="js/app/menuController.js"></script>
+	<script src="js/app/pizzaController.js"></script>
+	<script src="js/app/labController.js"></script>
+	<link rel="stylesheet" href="css/lib/bootstrap.min.css"/>
+	<link rel="stylesheet" href="css/app/app.css"/> -->
 </head>
 <body ng-app="demo">
 <hr/>
@@ -26,7 +36,7 @@
         </div>
     </div>
 </div>
-
+<!--
 <div ng-controller="helloController">
     <div class="container">
         <h1>AngularFundamentals</h1>
@@ -34,17 +44,6 @@
         <pre>{{appName}}</pre>
         {{dateAng}}
     </div>
-    <script>
-    var helloWorldApp = angular.module("helloWorldApp", []);
-    angular.module("helloWorldApp").controller( 'helloController',['$scope', 'myconfig',
-    function($scope, myconfig){
-        $scope.appName= "Atul angular app";
-        $scope.appName= myconfig.applicationName;
-        $scope.dateAng = Date();
-    }
-    ]);
-    angular.module("helloWorldApp").constant('myconfig', {applicationName: 'Atul'});
-    </script>
 </div>
 
 <div ng-controller="labController">
@@ -118,15 +117,13 @@
 		</div>
     </div>
 </div>
+-->
 </body>
 <script src="js/lib/angular.min.js"></script>
 <script src="js/lib/ui-bootstrap-tpls-2.5.0.min.js"></script>
 <script src="js/app/app.js"></script>
 <script src="js/app/UserController.js"></script>
 <script src="js/app/UserService.js"></script>
-<script src="js/app/labController.js"></script>
-<script src="js/app/menuController.js"></script>
-<script src="js/app/pizzaController.js"></script>
 <link rel="stylesheet" href="css/lib/bootstrap.min.css"/>
 <link rel="stylesheet" href="css/app/app.css"/>
 </html>
